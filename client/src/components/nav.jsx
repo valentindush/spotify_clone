@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import {Link} from "react-router-dom";
 
 
-export default function Nav(){
+export default function Nav(props){
     return(
         <section className={'h-full w-[220px] bg-black p-4 px-4 '}>
             <div className={'logo pt-5 pb-5'}>
@@ -55,8 +55,9 @@ export default function Nav(){
                 </div>
                 <div className={''}>
                     <div className={''}>
-                        <p className={'text-white text-sm px-2 py-1 opacity-70 cursor-pointer'}>My Playlist #1</p>
-                        <p className={'text-white text-sm px-2 py-1 opacity-70 cursor-pointer'}>My Playlist #1</p>
+                        {props.p.map((p,index)=>{
+                            return <p className={'text-white text-sm px-2 py-1 opacity-70 cursor-pointer'} key={index}>{p.name}</p>
+                        })}
                     </div>
                 </div>
             </nav>

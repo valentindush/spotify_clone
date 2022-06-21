@@ -2,7 +2,7 @@ import React from 'react'
 import testImg from "../img/test.jpg";
 import {useState} from 'react';
 
-export default function  HomeHeader(){
+export default function  HomeHeader(props){
     const [navFill,setNavFill] = useState("bg-[#222]")
     window.addEventListener('scroll',(e)=>{
         if(e.scrollY < 100){
@@ -27,8 +27,8 @@ export default function  HomeHeader(){
             <div className={'flex gap-4 px-5'}>
                 <button className={'border-[1px] p-1 px-5 text-white text-sm border-white rounded-full'}>Upgrade</button>
                 <div className={'flex gap-2 items-center p-1 bg-black rounded-full pr-2 cursor-pointer'}>
-                    <img className={'w-6 h-6 object-cover rounded-full '} src={testImg}/>
-                    <span className={'text-xs text-white'}>dush_valentin</span>
+                    <img className={'w-6 h-6 object-cover rounded-full '} src={props.user?props.user.images[0].url:testImg}/>
+                    <span className={'text-xs text-white'}>{props.user?props.user.display_name: ""}</span>
                     <svg className={'fill-white w-3 h-3'} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
                         <path d="M192 384c-8.188 0-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L192 306.8l137.4-137.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-160 160C208.4 380.9 200.2 384 192 384z"/>
                     </svg>
