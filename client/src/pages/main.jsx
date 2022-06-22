@@ -146,7 +146,7 @@ export default  function Home(){
                         <div className="flex gap-3 flex-wrap pt-4">
                             {recentlyPlayed && recentlyPlayed.items.map((item,i)=>{
                                 return (
-                                    <HomeCard key={i} img={item.track.album.images[0].url?item.track.album.images[0].url:testImg} t={item.track.album.name} subt={item.track.artists[0].name}/>
+                                    <HomeCard uri={item.track.uri} handler={playSong} key={i} img={item.track.album.images[0].url?item.track.album.images[0].url:testImg} t={item.track.album.name} subt={item.track.artists[0].name}/>
                                 )
 
                             })}
