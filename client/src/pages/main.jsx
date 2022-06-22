@@ -7,7 +7,7 @@ import HomeCard from "../components/homeCard";
 import Player from "../components/player";
 import { useNavigate } from 'react-router-dom';
 import ReactAudioPlayer from 'react-audio-player'
-
+import SpotifyPlayer from 'react-spotify-player'
 
 export default  function Home(){
     const [token,setToken] = useState("")
@@ -17,6 +17,8 @@ export default  function Home(){
     const [l_p,setL_p] = useState(false)
     const [userInfo, setUserInfo] = useState(null)
     const [recentlyPlayed, setRecentlyPlayed] = useState(null)
+    const [currentSong,setCurrentSong] = useState("spotify:track:3gruCKVuhCsRjs3a3dG8CA")
+
 
     const getUserInfo = async(token)=>{
         var myHeaders = new Headers();
@@ -97,6 +99,7 @@ export default  function Home(){
         .then(response => response.json())
         .then((result)=>{
             setF_playlist(result)
+            setCurrentSong(result.tracks.items[0].track.preview_url )
             setL_p(true)
         })
         .catch((error)=>{
@@ -118,14 +121,14 @@ export default  function Home(){
         
     },[])
 
-    const [currentSong,setCurrentSong] = useState(l_p?f_playlist.tracks.items[0].track.preview_url:'')
-    // const playSong = (url)=>{
-    //     setCurrentSong(url)
-    // }
+    const playSong = (url)=>{
+        setCurrentSong(url)
+        console.log(currentSong)
+    }
 
     const size = {
         width: '100%',
-        height: 300,
+        height: '100%',
     };
       const view = 'list'; // or 'coverart'
       const theme = 'black'; // or 'white'
@@ -156,7 +159,7 @@ export default  function Home(){
                         <div className={'flex gap-3 flex-wrap pt-4'}>
                             {f_playlist && f_playlist.tracks.items.map((item, index)=>{
                                 return(
-                                    <HomeCard key={index} img={item.track.album.images[0].url?item.track.album.images[0].url:testImg} t={item.track.album.name} subt={item.track.artists[0].name}/>
+                                    <HomeCard uri={item.track.uri} handler={playSong} key={index} img={item.track.album.images[0].url?item.track.album.images[0].url:testImg} t={item.track.album.name} subt={item.track.artists[0].name}/>
                                 )
                             })}
                       
@@ -208,7 +211,12 @@ export default  function Home(){
 
                {l_p && <div className="fixed bottom-0 z-10 w-screen h-24 bg-[#222]">
 
-                    <audio src={currentSong} controls autoPlay></audio>        
+                    <SpotifyPlayer
+                    size={size}
+                    view={view}
+                    theme={theme}
+                    uri={currentSong}
+                     />
                     
                 </div>}
             </section>
