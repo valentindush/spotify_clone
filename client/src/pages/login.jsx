@@ -11,7 +11,7 @@ export default function Login() {
 
     const handleClick = async () => {
         const client_id = "febafbfe1b4e40b6b002cc6f0dfaccd6";
-        const redirect_uri = "http://localhost:3000";
+        const redirect_uri = "https://spotify-dush.vercel.app";
         const api_uri = "https://accounts.spotify.com/authorize";
         const scope = [
           "user-read-private",
